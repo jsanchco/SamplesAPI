@@ -1,12 +1,12 @@
-﻿using ConsoleApp.Basic.Models;
-using ConsoleApp.Basic.Services;
+﻿using ConsoleApp.Authentication.Models;
+using ConsoleApp.Authentication.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ConsoleApp.Basic
+namespace ConsoleApp.Authentication
 {
     public class ConsoleApp : IHostedService
     {
@@ -41,7 +41,7 @@ namespace ConsoleApp.Basic
 
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("Press (F1) to Test Basic.");
+            Console.WriteLine("Press (F1) to Test Authentication HMAC.");
             Console.WriteLine("Press (ESC) to exit");
             Console.WriteLine("");
         }
