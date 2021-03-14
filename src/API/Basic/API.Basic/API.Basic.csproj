@@ -11,12 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Shared.Logger\Shared.Logger.csproj" />
-    <ProjectReference Include="..\..\Shared\Shared.Model\Shared.Model.csproj" />
+    <Folder Include="healthchecks\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="healthchecks\" />
+    <ProjectReference Include="..\..\..\Shared\Shared.Logger\Shared.Logger.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Shared.Model\Shared.Model.csproj" />
   </ItemGroup>
 
 
