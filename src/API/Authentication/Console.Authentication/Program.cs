@@ -24,6 +24,7 @@ namespace ConsoleApp.Authentication
                     services.AddSingleton<Configuration<AppConfig>>();
                     services.AddSingleton<IHostedService, ConsoleApp>();
 
+                    services.AddSingleton<HMACService>();
                     services.AddHttpClient();
 
                     // Add Papertrail to trace

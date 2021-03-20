@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shared.Model.Response;
 using System;
@@ -6,8 +7,9 @@ using System.Net;
 
 namespace API.Basic.Controllers
 {
-    [Route("api/v1/[controller]")]
     [ApiController]
+    [Route("api/v1/[controller]")]   
+    [Authorize(AuthenticationSchemes = "HMAC")]
     public class ValuesController : ControllerBase
     {
         private readonly ILogger<ValuesController> _logger;
@@ -17,7 +19,7 @@ namespace API.Basic.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("{echo}")]
         public IActionResult Get(string echo)
         {
             try

@@ -10,10 +10,13 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Shared.Authentication\Shared.Authentication.csproj" />
     <ProjectReference Include="..\..\..\Shared\Shared.Logger\Shared.Logger.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Shared.Model\Shared.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>

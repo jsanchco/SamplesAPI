@@ -2,6 +2,7 @@
 using ConsoleApp.Authentication.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,13 +12,16 @@ namespace ConsoleApp.Authentication
     public class ConsoleApp : IHostedService
     {
         private readonly Configuration<AppConfig> _configuration;
+        private readonly HMACService _hMACService;
         private readonly ILogger<ConsoleApp> _logger;
 
         public ConsoleApp(
             Configuration<AppConfig> configuration,
+            HMACService hMACService,
             ILogger<ConsoleApp> logger)
         {
             _configuration = configuration;
+            _hMACService = hMACService;
             _logger = logger;
         }
 
@@ -62,7 +66,7 @@ namespace ConsoleApp.Authentication
                 {
                     case ConsoleKey.F1:
                         Console.WriteLine("Pressed F1 ...");
-                        _logger.LogInformation("Pressed F1 ...");
+                        var getEcho = await _hMACService.GetEcho("Hello!!!");
                         break;
                 }
             } while (key != ConsoleKey.Escape);

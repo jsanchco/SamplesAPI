@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Authentication", "src\A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp.Authentication", "src\API\Authentication\Console.Authentication\ConsoleApp.Authentication.csproj", "{312C3113-C213-4D43-B7EC-3BE1295CBC84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Authentication", "src\Shared\Shared.Authentication\Shared.Authentication.csproj", "{E8A2B5FD-98F4-4827-933B-1FEB86A5C892}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{312C3113-C213-4D43-B7EC-3BE1295CBC84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{312C3113-C213-4D43-B7EC-3BE1295CBC84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{312C3113-C213-4D43-B7EC-3BE1295CBC84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8A2B5FD-98F4-4827-933B-1FEB86A5C892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8A2B5FD-98F4-4827-933B-1FEB86A5C892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8A2B5FD-98F4-4827-933B-1FEB86A5C892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8A2B5FD-98F4-4827-933B-1FEB86A5C892}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{6E179D80-1186-4D47-B6BF-30D6C4B98600} = {340E8333-DBB6-4FF7-A0FD-3C376E14DB8F}
 		{43BD42F6-D7C1-4F63-ABB1-29A8F8690079} = {67D2078F-76DC-4133-8481-AEE10E3AC06B}
 		{312C3113-C213-4D43-B7EC-3BE1295CBC84} = {67D2078F-76DC-4133-8481-AEE10E3AC06B}
+		{E8A2B5FD-98F4-4827-933B-1FEB86A5C892} = {56185CAC-18A9-488E-8A49-EF5BD74D89B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE7F96B1-B5EE-4F57-B16A-897F8B3537D7}

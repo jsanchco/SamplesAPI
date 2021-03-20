@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Shared.Authentication.Services;
 using Shared.Logger;
 
 namespace API.Authentication
@@ -26,6 +27,23 @@ namespace API.Authentication
             services.AddControllers();
 
             services.AddCustomHealthChecks();
+
+            services.AddScoped<ISecretLookup, SecretLookup>();
+
+            services.AddMemoryCache();
+            //services.AddAuthentication(o => o.AddScheme("api", a => a.HandlerType = typeof(HMACAuthentication.API.TokenHandler)));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "HMAC";
+            }).AddHMACAuthentication();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AuthenticationRequired", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                });
+            });
 
             services.AddSwaggerGen(s =>
             {
