@@ -52,8 +52,6 @@ namespace ConsoleApp.Authentication.Services
 
             // Send request
             var httpResponseMessage = await _client.SendAsync(requestMessage);
-
-
             if (httpResponseMessage.IsSuccessStatusCode)
             {
                 string responseString = await httpResponseMessage.Content.ReadAsStringAsync();

@@ -66,7 +66,7 @@ namespace ConsoleApp.Authentication
                 {
                     case ConsoleKey.F1:
                         Console.WriteLine("Pressed F1 ...");
-                        var getEcho = await _hMACService.GetEcho("Hello!!!");
+                        var getEcho = await _hMACService.GetEcho("Hello");
                         break;
                 }
             } while (key != ConsoleKey.Escape);

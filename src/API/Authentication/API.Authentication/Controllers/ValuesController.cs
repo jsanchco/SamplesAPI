@@ -19,7 +19,7 @@ namespace API.Basic.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{echo}")]
+        [HttpGet("echo/{echo}")]
         public IActionResult Get(string echo)
         {
             try
