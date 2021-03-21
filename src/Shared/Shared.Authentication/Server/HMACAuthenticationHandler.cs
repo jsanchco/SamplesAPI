@@ -25,7 +25,8 @@ namespace Shared.Authentication.Server
               ISystemClock clock,
               ISecretLookup lookup) : base(options, logger, encoder, clock)
         {
-            _lookup = lookup ?? throw new ArgumentNullException(nameof(lookup));
+            _lookup = lookup ?? 
+                throw new ArgumentNullException(nameof(lookup));
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()

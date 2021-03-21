@@ -12,34 +12,43 @@ namespace ConsoleApp.Authentication.Services
 {
     public class HMACService
     {
+        private const string AUTHENTICATION_SCHEME = "HMAC";
+
         private readonly Configuration<AppConfig> _configuration;
         private readonly HttpClient _client;
+        private readonly ISecretLookup _secretLookup;
+
+        private readonly Endpoint _endpointHMAC;
 
         public HMACService(
             HttpClient client,
-            Configuration<AppConfig> configuration)
+            Configuration<AppConfig> configuration,
+            ISecretLookup secretLookup)
         {
-            _client = client;
             _configuration = configuration;
-        }
-
-        public async Task<ResponseResult<string>> GetEcho(string echo)
-        {
             var endpointHMAC = _configuration.Settings.Endpoints.FirstOrDefault(x => x.Type == Constants.HMAC);
             if (endpointHMAC == null)
             {
                 Console.WriteLine($"Failed to load Endpoint HMAC");
-                return null;
+                throw new Exception($"Failed to load Endpoint HMAC");
             }
 
+            _endpointHMAC = endpointHMAC;
+            _client = client;            
+            _secretLookup = secretLookup;
+            _secretLookup.Id = endpointHMAC.Id;
+        }
+
+        public async Task<ResponseResult<string>> GetEcho(string echo)
+        {
             // Create request
-            var requestUri = $"{endpointHMAC.Url}/{echo}";
+            var requestUri = $"{_endpointHMAC.Url}/{echo}";
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
             requestMessage.Headers.Date = DateTimeOffset.UtcNow;
 
             // Calculate Signature
             string authenticationSignature = SignatureHelper.Calculate(
-                SecretLookup.Secret,
+                _secretLookup.Secret,
                 SignatureHelper.Generate(
                     requestMessage.Headers.Date.Value,
                     requestMessage?.Content?.Headers.ContentLength ?? 0,
@@ -47,8 +56,8 @@ namespace ConsoleApp.Authentication.Services
                     requestMessage.RequestUri.PathAndQuery,
                     ""));
             requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(
-                "HMAC", 
-                SecretLookup.Id + ":" + authenticationSignature);
+                AUTHENTICATION_SCHEME,
+                _secretLookup.Id + ":" + authenticationSignature);
 
             // Send request
             var httpResponseMessage = await _client.SendAsync(requestMessage);

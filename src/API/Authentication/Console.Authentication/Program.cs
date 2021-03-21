@@ -3,6 +3,7 @@ using ConsoleApp.Authentication.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Shared.Authentication.Services;
 using Shared.Logger;
 using System.Threading.Tasks;
 
@@ -36,6 +37,10 @@ namespace ConsoleApp.Authentication
                         configuration.Settings.Papertrail.port);
                     services.AddSingleton(typeof(ILoggerFactory), loggerFactory);
                     // Add Papertrail to trace
+
+                    services.AddScoped<ISecretLookup>(x => new SecretLookup(
+                    null,
+                    new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32 }));
                 });
     }
 }

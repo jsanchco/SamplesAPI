@@ -1,4 +1,5 @@
 using API.Authentication.Configuration;
+using API.Authentication.Models;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -28,7 +29,11 @@ namespace API.Authentication
 
             services.AddCustomHealthChecks();
 
-            services.AddScoped<ISecretLookup, SecretLookup>();
+            var hMACAuthenticationSettings = new HMACAuthenticationSettings();
+            Configuration.GetSection("HMACAuthenticationSettings").Bind(hMACAuthenticationSettings);
+            services.AddScoped<ISecretLookup>(x => new SecretLookup(
+                hMACAuthenticationSettings.Secret,
+                new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32 }));
 
             services.AddMemoryCache();
             //services.AddAuthentication(o => o.AddScheme("api", a => a.HandlerType = typeof(HMACAuthentication.API.TokenHandler)));
