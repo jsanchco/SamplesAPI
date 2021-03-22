@@ -39,7 +39,8 @@ namespace Shared.Authentication.Server
             if (!DateTimeOffset.TryParseExact(Request.Headers[DateHeader], "r", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AssumeUniversal, out DateTimeOffset requestDate))
                 return AuthenticateResult.Fail("Unable to parse Date header");
 
-            if (requestDate > Clock.UtcNow.Add(Options.AllowedDateDrift) || requestDate < Clock.UtcNow.Subtract(Options.AllowedDateDrift))
+            if (requestDate > Clock.UtcNow.Add(Options.AllowedDateDrift) || 
+                requestDate < Clock.UtcNow.Subtract(Options.AllowedDateDrift))
                 return AuthenticateResult.Fail("Date is drifted more than allowed, adjust your time settings.");
 
             // Lookup and verify secret
