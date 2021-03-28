@@ -2,7 +2,6 @@
 using ConsoleApp.Authentication.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,7 +44,9 @@ namespace ConsoleApp.Authentication
 
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("Press (F1) to Test Authentication HMAC.");
+            Console.WriteLine("Press (F1) to Test Authentication HMAC (Device1).");
+            Console.WriteLine("Press (F2) to Test Authentication HMAC (Device2).");
+            Console.WriteLine("Press (F3) to Test Authentication HMAC (Fake).");
             Console.WriteLine("Press (ESC) to exit");
             Console.WriteLine("");
         }
@@ -66,7 +67,17 @@ namespace ConsoleApp.Authentication
                 {
                     case ConsoleKey.F1:
                         Console.WriteLine("Pressed F1 ...");
-                        var getEcho = await _hMACService.GetEcho("Hello");
+                        await _hMACService.GetEcho("Hello", "Device1");
+                        break;
+
+                    case ConsoleKey.F2:
+                        Console.WriteLine("Pressed F2 ...");
+                        await _hMACService.GetEcho("Hello", "Device2");
+                        break;
+
+                    case ConsoleKey.F3:
+                        Console.WriteLine("Pressed F3 ...");
+                        await _hMACService.GetEcho("Hello", "Device3");
                         break;
                 }
             } while (key != ConsoleKey.Escape);

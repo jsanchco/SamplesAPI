@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Shared.Authentication.Model;
-using Shared.Authentication.Services;
+using Shared.Authentication.Services.CacheClientsAuthenticate;
 using System;
 using System.Linq;
 using System.Security.Principal;
@@ -16,17 +16,17 @@ namespace Shared.Authentication.Server
         private const string DateHeader = "Date";
         private const string AuthorizationHeader = "Authorization";
 
-        private readonly ISecretLookup _lookup;
+        private readonly ICacheClientsAuthenticateService _cacheClientsAuthenticateService;
 
         public HMACAuthenticationHandler(
               IOptionsMonitor<HMACAuthenticationOptions> options,
               ILoggerFactory logger,
               UrlEncoder encoder,
               ISystemClock clock,
-              ISecretLookup lookup) : base(options, logger, encoder, clock)
+              ICacheClientsAuthenticateService cacheClientsAuthenticateService) : base(options, logger, encoder, clock)
         {
-            _lookup = lookup ?? 
-                throw new ArgumentNullException(nameof(lookup));
+            _cacheClientsAuthenticateService = cacheClientsAuthenticateService ??
+                throw new ArgumentNullException(nameof(cacheClientsAuthenticateService));
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -39,23 +39,18 @@ namespace Shared.Authentication.Server
             if (!DateTimeOffset.TryParseExact(Request.Headers[DateHeader], "r", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AssumeUniversal, out DateTimeOffset requestDate))
                 return AuthenticateResult.Fail("Unable to parse Date header");
 
-            if (requestDate > Clock.UtcNow.Add(Options.AllowedDateDrift) || 
+            if (requestDate > Clock.UtcNow.Add(Options.AllowedDateDrift) ||
                 requestDate < Clock.UtcNow.Subtract(Options.AllowedDateDrift))
                 return AuthenticateResult.Fail("Date is drifted more than allowed, adjust your time settings.");
 
             // Lookup and verify secret
             Logger.LogDebug("Looking up secret for {Id}", header.Value.id);
-            var secret = await _lookup.LookupAsync(header.Value.id);
+            var secret = await _cacheClientsAuthenticateService.FindAsync(header.Value.id);
 
             if (secret == null)
             {
                 Logger.LogInformation("No secret found for {Id}", header.Value.id);
                 return AuthenticateResult.Fail("Invalid id");
-            }
-            else if (secret.Length != 32)
-            {
-                Logger.LogError("Secret must be 32 bytes in size");
-                throw new InvalidOperationException("Incorrect secret size");
             }
 
             // Check signature
