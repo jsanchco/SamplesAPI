@@ -10,14 +10,30 @@ namespace API.Authentication.Configuration
 {
     public static class AuthenticationServices
     {
-        public static AuthenticationBuilder AddHMACAuthentication(this AuthenticationBuilder builder)
+        public static AuthenticationBuilder AddHMACAuthentication(
+            this AuthenticationBuilder builder)
         {
-            return builder.AddHMACAuthentication((options) => { });
+            builder.AddHMACAuthentication((options) => { });
+            builder.AddHMAC1Authentication((options) => { });
+
+            return builder;
         }
 
-        public static AuthenticationBuilder AddHMACAuthentication(this AuthenticationBuilder builder, Action<HMACAuthenticationOptions> options)
+        public static AuthenticationBuilder AddHMACAuthentication(this AuthenticationBuilder builder, Action<AuthenticationOptionsBase> options)
         {
-            return builder.AddScheme<HMACAuthenticationOptions, HMACAuthenticationHandler>(HMACAuthenticationOptions.DefaultSchema, options);
+            return builder.AddScheme<AuthenticationOptionsBase, HMACAuthenticationHandler>("HMAC", options);
+        }
+
+        public static AuthenticationBuilder AddHMAC1Authentication(this AuthenticationBuilder builder)
+        {
+            builder.AddHMAC1Authentication((options) => { });
+
+            return builder;
+        }
+
+        public static AuthenticationBuilder AddHMAC1Authentication(this AuthenticationBuilder builder, Action<AuthenticationOptionsBase> options)
+        {
+            return builder.AddScheme<AuthenticationOptionsBase, HMACAuthenticationHandler>("HMAC1", options);
         }
 
         public static IServiceCollection AddCacheClientsAuthenticate(this IServiceCollection services, IConfiguration configuration)

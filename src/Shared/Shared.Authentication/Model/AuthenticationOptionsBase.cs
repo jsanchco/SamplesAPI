@@ -3,11 +3,9 @@ using System;
 
 namespace Shared.Authentication.Model
 {
-    public class HMACAuthenticationOptions : AuthenticationSchemeOptions
+    public class AuthenticationOptionsBase : AuthenticationSchemeOptions
     {
-        public const string DefaultSchema = "HMAC";
-
-        public string Schema => DefaultSchema;
+        public virtual string Schema => "Base";
 
         public TimeSpan AllowedDateDrift { get; set; } = TimeSpan.FromMinutes(5);
 

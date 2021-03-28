@@ -11,22 +11,37 @@ using System.Threading.Tasks;
 
 namespace Shared.Authentication.Server
 {
-    public class HMACAuthenticationHandler : AuthenticationHandler<HMACAuthenticationOptions>
+    public class HMACAuthenticationHandler : AuthenticationHandler<AuthenticationOptionsBase>
     {
         private const string DateHeader = "Date";
         private const string AuthorizationHeader = "Authorization";
 
         private readonly ICacheClientsAuthenticateService _cacheClientsAuthenticateService;
 
+      //  public HMACAuthenticationHandler(
+      //IOptionsMonitor<HMACAuthenticationOptions> options,
+      //ILoggerFactory logger,
+      //UrlEncoder encoder,
+      //ISystemClock clock,
+      //ICacheClientsAuthenticateService cacheClientsAuthenticateService) : base(options, logger, encoder, clock)
+      //  {
+      //      _cacheClientsAuthenticateService = cacheClientsAuthenticateService ??
+      //          throw new ArgumentNullException(nameof(cacheClientsAuthenticateService));
+      //  }
+
         public HMACAuthenticationHandler(
-              IOptionsMonitor<HMACAuthenticationOptions> options,
+              IOptionsMonitor<AuthenticationOptionsBase> options,
               ILoggerFactory logger,
               UrlEncoder encoder,
               ISystemClock clock,
-              ICacheClientsAuthenticateService cacheClientsAuthenticateService) : base(options, logger, encoder, clock)
+              ICacheClientsAuthenticateService cacheClientsAuthenticateService) : base(
+                  options, 
+                  logger, 
+                  encoder, 
+                  clock)
         {
             _cacheClientsAuthenticateService = cacheClientsAuthenticateService ??
-                throw new ArgumentNullException(nameof(cacheClientsAuthenticateService));
+                throw new ArgumentNullException(nameof(cacheClientsAuthenticateService));           
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -45,7 +60,9 @@ namespace Shared.Authentication.Server
 
             // Lookup and verify secret
             Logger.LogDebug("Looking up secret for {Id}", header.Value.id);
-            var secret = await _cacheClientsAuthenticateService.FindAsync(header.Value.id);
+            var secret = await _cacheClientsAuthenticateService.FindAsync(
+                Scheme.Name,
+                header.Value.id);
 
             if (secret == null)
             {

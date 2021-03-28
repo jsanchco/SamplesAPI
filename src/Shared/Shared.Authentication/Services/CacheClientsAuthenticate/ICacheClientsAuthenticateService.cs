@@ -4,6 +4,6 @@ namespace Shared.Authentication.Services.CacheClientsAuthenticate
 {
     public interface ICacheClientsAuthenticateService
     {
-        Task<string> FindAsync(string id);
+        Task<string> FindAsync(string scheme, string id);
     }
 }

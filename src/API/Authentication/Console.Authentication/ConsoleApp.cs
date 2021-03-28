@@ -46,7 +46,8 @@ namespace ConsoleApp.Authentication
             Console.WriteLine("");
             Console.WriteLine("Press (F1) to Test Authentication HMAC (Device1).");
             Console.WriteLine("Press (F2) to Test Authentication HMAC (Device2).");
-            Console.WriteLine("Press (F3) to Test Authentication HMAC (Fake).");
+            Console.WriteLine("Press (F3) to Test Authentication HMAC1 (Device3).");
+            Console.WriteLine("Press (F4) to Test Authentication HMAC (fake).");
             Console.WriteLine("Press (ESC) to exit");
             Console.WriteLine("");
         }
@@ -78,6 +79,11 @@ namespace ConsoleApp.Authentication
                     case ConsoleKey.F3:
                         Console.WriteLine("Pressed F3 ...");
                         await _hMACService.GetEcho("Hello", "Device3");
+                        break;
+
+                    case ConsoleKey.F4:
+                        Console.WriteLine("Pressed F4 ...");
+                        await _hMACService.GetEcho("Hello", "fake");
                         break;
                 }
             } while (key != ConsoleKey.Escape);

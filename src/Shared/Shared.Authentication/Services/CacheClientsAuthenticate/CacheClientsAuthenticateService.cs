@@ -12,9 +12,11 @@ namespace Shared.Authentication.Services.CacheClientsAuthenticate
             _authenticationSettings = authenticationSettings;
         }
 
-        public async Task<string> FindAsync(string id)
+        public async Task<string> FindAsync(string scheme, string id)
         {
-            var findAuthentication = _authenticationSettings.Authentications.FirstOrDefault(x => x.ApiId == id);
+            var findAuthentication = _authenticationSettings.Authentications.FirstOrDefault(x =>
+                x.Schemes == scheme &&
+                x.ApiId == id);
 
             if (findAuthentication == null)
                 return await Task.FromResult<string>(null);
