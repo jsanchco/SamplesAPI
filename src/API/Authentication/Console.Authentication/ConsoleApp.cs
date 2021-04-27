@@ -13,15 +13,18 @@ namespace ConsoleApp.Authentication
         private readonly Configuration<AppConfig> _configuration;
         private readonly HMACService _hMACService;
         private readonly ILogger<ConsoleApp> _logger;
+        private readonly IHostApplicationLifetime _lifeTime;
 
         public ConsoleApp(
             Configuration<AppConfig> configuration,
             HMACService hMACService,
-            ILogger<ConsoleApp> logger)
+            ILogger<ConsoleApp> logger,
+            IHostApplicationLifetime lifeTime)
         {
             _configuration = configuration;
             _hMACService = hMACService;
             _logger = logger;
+            _lifeTime = lifeTime;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -87,6 +90,10 @@ namespace ConsoleApp.Authentication
                         break;
                 }
             } while (key != ConsoleKey.Escape);
+
+            Console.WriteLine("Bye ...");
+            Thread.Sleep(1000);
+            _lifeTime.StopApplication();
         }
     }
 }

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Client.ConsumeRabbitConsole": {
+    "Console SGBOnline": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
