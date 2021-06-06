@@ -6,7 +6,7 @@ namespace API.Basic.Configuration
     // Health check            
     // - Add NuGet package: AspNetCore.HealthChecks.UI (Version 3.0.9)
     // - Add folder 'healthchecks' to project
-    // - Check UI -> http://localhost:XXXXXX/healthchecks-ui#/healthchecks
+    // - Check UI -> http://localhost:60368/healthchecks-ui#/healthchecks
 
     public static class HealthChecksServices
     {

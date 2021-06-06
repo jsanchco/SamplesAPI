@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Shared.CrmSdk.Interfaces;
 using Shared.Model.Response;
 using System;
 using System.Net;
@@ -11,10 +12,14 @@ namespace API.Basic.Controllers
     public class ValuesController : ControllerBase
     {
         private readonly ILogger<ValuesController> _logger;
+        private readonly IContext _context;
 
-        public ValuesController(ILogger<ValuesController> logger)
+        public ValuesController(
+            ILogger<ValuesController> logger,
+            IContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet]
@@ -24,10 +29,11 @@ namespace API.Basic.Controllers
             {
                 _logger.LogInformation($"In ValuesController -> [HttpGet]");
 
+                var result = _context.Test(echo);
                 return Ok(new ResponseResult<string>
                 {
                     Succesful = true,
-                    Data = echo
+                    Data = result
                 });
             }
             catch (Exception ex)

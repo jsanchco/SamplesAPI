@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.SGBOnline", "src\API\SG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp.SGBOnline", "src\API\SGBOnline\Console.SGBOnline\ConsoleApp.SGBOnline.csproj", "{A798A300-3AA5-4D03-9873-5F6E51C0A4EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.CrmSdk", "Shared.CrmSdk\Shared.CrmSdk.csproj", "{F93CDD77-530C-4336-BC90-C263EBA19ED5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{A798A300-3AA5-4D03-9873-5F6E51C0A4EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A798A300-3AA5-4D03-9873-5F6E51C0A4EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A798A300-3AA5-4D03-9873-5F6E51C0A4EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F93CDD77-530C-4336-BC90-C263EBA19ED5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F93CDD77-530C-4336-BC90-C263EBA19ED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F93CDD77-530C-4336-BC90-C263EBA19ED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F93CDD77-530C-4336-BC90-C263EBA19ED5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +102,7 @@ Global
 		{989A052E-4304-4297-888A-795FD84E5981} = {A91CF079-FFAF-47B8-B55E-F55F94F025A4}
 		{41960818-2447-4458-8B30-7E3E433B203D} = {989A052E-4304-4297-888A-795FD84E5981}
 		{A798A300-3AA5-4D03-9873-5F6E51C0A4EE} = {989A052E-4304-4297-888A-795FD84E5981}
+		{F93CDD77-530C-4336-BC90-C263EBA19ED5} = {56185CAC-18A9-488E-8A49-EF5BD74D89B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE7F96B1-B5EE-4F57-B16A-897F8B3537D7}
