@@ -6,12 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="3.0.9" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="healthchecks\" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="3.1.3" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="3.1.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="3.1.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
 
   <ItemGroup>

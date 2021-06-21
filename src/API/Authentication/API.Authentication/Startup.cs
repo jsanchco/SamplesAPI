@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Shared.Logger;
 
 namespace API.Authentication
 {
@@ -23,6 +21,8 @@ namespace API.Authentication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddPapertrailLogging(Configuration);
 
             services.AddCustomHealthChecks();
 
@@ -49,18 +49,12 @@ namespace API.Authentication
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app,
-            IWebHostEnvironment env,
-            ILoggerFactory loggerFactory)
+            IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            // Check url -> https://my.papertrailapp.com/events
-            loggerFactory.AddSyslog(
-                Configuration.GetValue<string>("Papertrail:host"),
-                Configuration.GetValue<int>("Papertrail:port"));
 
             app.UseRouting();
 
@@ -68,13 +62,13 @@ namespace API.Authentication
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
-                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions()
                 {
                     Predicate = _ => true,
                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                 });
                 endpoints.MapHealthChecksUI();
+                endpoints.MapControllers();
             });
 
             app.UseSwagger();

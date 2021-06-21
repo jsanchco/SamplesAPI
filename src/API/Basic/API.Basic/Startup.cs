@@ -1,4 +1,5 @@
 using API.Basic.Configuration;
+using API.Basic.Middlewares;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -6,8 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Shared.Logger;
 
 namespace API.Basic
 {
@@ -25,6 +24,8 @@ namespace API.Basic
         {
             services.AddControllers();
 
+            services.AddPapertrailLogging(Configuration);
+
             services.AddCustomHealthChecks();
 
             services.AddSwaggerGen(s =>
@@ -40,18 +41,14 @@ namespace API.Basic
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app,
-            IWebHostEnvironment env,
-            ILoggerFactory loggerFactory)
+            IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            // Check url -> https://my.papertrailapp.com/events
-            loggerFactory.AddSyslog(
-                Configuration.GetValue<string>("Papertrail:host"),
-                Configuration.GetValue<int>("Papertrail:port"));
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseRouting();
 
@@ -59,20 +56,19 @@ namespace API.Basic
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
-                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                endpoints.MapHealthChecks("/healthz", new HealthCheckOptions()
                 {
                     Predicate = _ => true,
                     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
                 });
                 endpoints.MapHealthChecksUI();
+                endpoints.MapControllers();
             });
 
             app.UseSwagger();
             app.UseSwaggerUI(s =>
             {
-                s.SwaggerEndpoint("../swagger/v1/swagger.json", "v1 docs");
-                //s.SwaggerEndpoint("/swagger/v1/swagger.json", "v1 docs");
+                s.SwaggerEndpoint("./swagger/v1/swagger.json", "v1 docs");
                 s.RoutePrefix = string.Empty;
             });
         }
