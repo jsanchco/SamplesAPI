@@ -29,6 +29,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp.Authentication",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Authentication", "src\Shared\Shared.Authentication\Shared.Authentication.csproj", "{E8A2B5FD-98F4-4827-933B-1FEB86A5C892}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03- Serilog", "03- Serilog", "{8CBD904A-28D2-4AFA-8CFF-D94C3DF33375}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Serilog", "src\API\Serilog\API.Serilog\API.Serilog.csproj", "{088853F3-3AC9-44E3-AF27-6189FC24B9C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,10 @@ Global
 		{E8A2B5FD-98F4-4827-933B-1FEB86A5C892}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8A2B5FD-98F4-4827-933B-1FEB86A5C892}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8A2B5FD-98F4-4827-933B-1FEB86A5C892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{088853F3-3AC9-44E3-AF27-6189FC24B9C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{088853F3-3AC9-44E3-AF27-6189FC24B9C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{088853F3-3AC9-44E3-AF27-6189FC24B9C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{088853F3-3AC9-44E3-AF27-6189FC24B9C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +87,8 @@ Global
 		{43BD42F6-D7C1-4F63-ABB1-29A8F8690079} = {67D2078F-76DC-4133-8481-AEE10E3AC06B}
 		{312C3113-C213-4D43-B7EC-3BE1295CBC84} = {67D2078F-76DC-4133-8481-AEE10E3AC06B}
 		{E8A2B5FD-98F4-4827-933B-1FEB86A5C892} = {56185CAC-18A9-488E-8A49-EF5BD74D89B5}
+		{8CBD904A-28D2-4AFA-8CFF-D94C3DF33375} = {A91CF079-FFAF-47B8-B55E-F55F94F025A4}
+		{088853F3-3AC9-44E3-AF27-6189FC24B9C5} = {8CBD904A-28D2-4AFA-8CFF-D94C3DF33375}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE7F96B1-B5EE-4F57-B16A-897F8B3537D7}
