@@ -21,21 +21,23 @@ namespace Shared.ROP.Test
         [TestMethod, TestCategory("Cast")]
         public void Cast_T_Value_ResultOK()
         {
-            Trace.WriteLine($"Init: {DateTime.Now.ToShortTimeString()}");
+            Trace.WriteLine($"Init: {DateTime.Now:HH:mm:ss}");
             Result<UserAccount> result = _userAccount;
             
             Assert.IsNotNull(result, $"Result is null, but UserAccount is {_userAccount}");
-            Trace.WriteLine(message: $"Success: {result.Success}, Value: {result.Value}, Errors: {result.Errors.Select(e => e.Message).JoinStrings(Environment.NewLine)}");
+            Trace.WriteLine(message: $"Success: {result.Success}, Value: {result.Value}, {result.Errors.Select(e => e.Message).Prepend($"There is/are {result.Errors.Length} errors:").JoinStrings(Environment.NewLine)}");
+            Trace.WriteLine($"End: {DateTime.Now:HH:mm:ss}");
         }
 
         [TestMethod, TestCategory("Cast")]
         public void Cast_T_Value_WithErrors_ResultOK()
         {
-            Trace.WriteLine($"Init: {DateTime.Now.ToShortTimeString()}");
+            Trace.WriteLine($"Init: {DateTime.Now:HH:mm:ss}");
             Result<UserAccount> result = _errors;
 
             Assert.IsNotNull(result, $"Result is null, but errors is {_errors}");
-            Trace.WriteLine(message: $"Success: {result.Success}, Value: {result.Value}, Errors: {result.Errors.Select(e => e.Message).JoinStrings(Environment.NewLine)}");
+            Trace.WriteLine(message: $"Success: {result.Success}, Value: {result.Value}, {result.Errors.Select(e => e.Message).Prepend($"There is/are {result.Errors.Length} errors:").JoinStrings(Environment.NewLine)}");
+            Trace.WriteLine($"End: {DateTime.Now:HH:mm:ss}");
         }
     }
 }
