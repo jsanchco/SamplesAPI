@@ -28,13 +28,13 @@ namespace API.Authentication
 
             services.AddCacheClientsAuthenticate(Configuration);
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AuthenticationRequired", policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                });
-            });
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("AuthenticationRequired", policy =>
+            //    {
+            //        policy.RequireAuthenticatedUser();
+            //    });
+            //});
 
             services.AddSwaggerGen(s =>
             {

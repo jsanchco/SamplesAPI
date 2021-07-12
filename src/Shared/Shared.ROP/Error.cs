@@ -5,10 +5,13 @@ namespace Shared.ROP
 {
     public class Error
     {
+        public string Mensaje => Message;
+        public int? Codigo => ErrorCode;
+
         public readonly string Message;
         public readonly int? ErrorCode;
 
-        private Error(string message, int? errorCode = null)
+        private Error(string message, int? errorCode)
         {
             Message = message;
             ErrorCode = errorCode;

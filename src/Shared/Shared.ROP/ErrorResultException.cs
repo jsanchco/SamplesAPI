@@ -1,11 +1,13 @@
-﻿using Shared.ROP.Extensions;
-using System;
+﻿using System;
 using System.Collections.Immutable;
 using System.Linq;
 
 namespace Shared.ROP
 {
-    class ErrorResultException : Exception
+    ///<summary>
+    /// Excepción que encapsula los Errores
+    /// </summary>
+    public class ErrorResultException : Exception
     {
         public ImmutableArray<Error> Errors { get; }
 
@@ -24,7 +26,7 @@ namespace Shared.ROP
         {
             if (errors.Length == 0)
             {
-                throw new Exception("You must add at least one error");
+                throw new Exception("Debes incluir almenos un error");
             }
 
             if (errors.Length == 1)
@@ -34,7 +36,7 @@ namespace Shared.ROP
 
             return errors
                 .Select(e => e.Message)
-                .Prepend($"Has ocurred {errors.Length} Errores:")
+                .Prepend($"Han ocurrido {errors.Length} Errores:")
                 .JoinStrings(Environment.NewLine);
         }
     }

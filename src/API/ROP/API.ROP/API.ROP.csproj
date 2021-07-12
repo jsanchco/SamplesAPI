@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Shared.Logger\Shared.Logger.csproj" />
-    <ProjectReference Include="..\..\..\Shared\Shared.Model\Shared.Model.csproj" />
   </ItemGroup>
 
 
