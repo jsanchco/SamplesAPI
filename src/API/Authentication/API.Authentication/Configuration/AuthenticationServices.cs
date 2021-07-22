@@ -46,7 +46,7 @@ namespace API.Authentication.Configuration
 
             services.AddAuthentication(options =>
             {
-                //options.DefaultScheme = "HMAC";
+                options.DefaultScheme = "HMAC";
             }).AddHMACAuthentication();
 
             return services;

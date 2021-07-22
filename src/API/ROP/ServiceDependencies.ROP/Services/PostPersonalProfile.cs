@@ -30,7 +30,7 @@ namespace ServiceDependencies.ROP.Services
         {
             var result = await _personalProfileRepository
                 .AddPersonalProfile(personalProfileDto.MapToEntity())
-                ;
+                .MapAsync();
 
             return null;
         }
