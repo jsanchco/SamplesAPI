@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Shared.Logger;
 
-namespace API.Serilog.Configuration
+namespace API.SerilogWithApplicationInsights.Configuration
 {
     public static class LoggingServices
     {

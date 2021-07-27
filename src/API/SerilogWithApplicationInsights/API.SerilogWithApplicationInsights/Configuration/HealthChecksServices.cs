@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace API.Lock.Configuration
+namespace API.SerilogWithApplicationInsights.Configuration
 {
     // Health check            
     // - Add NuGet package: AspNetCore.HealthChecks.UI (Version 3.1.3)
     // - Add NuGet package: AspNetCore.HealthChecks.UI.InMemory.Storage (Version 3.1.2)
     // - Add NuGet package: AspNetCore.HealthChecks.UI.Client (Version 3.1.2)
-    // - Check UI -> http://localhost:60408/healthchecks-ui#/healthchecks
+    // - Check UI -> http://localhost:60418/healthchecks-ui#/healthchecks
 
     public static class HealthChecksServices
     {

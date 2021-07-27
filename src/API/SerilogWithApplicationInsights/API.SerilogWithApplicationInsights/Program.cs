@@ -1,0 +1,35 @@
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.ApplicationInsights;
+using Serilog;
+
+namespace API.SerilogWithApplicationInsights
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    string key = hostingContext.Configuration
+                            .GetSection("ApplicationInsights:InstrumentationKey")
+                            .Value;
+                    if (!string.IsNullOrEmpty(key))
+                    {
+                        logging.AddApplicationInsights(key);
+                        logging.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Information);
+                    }
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
+                .UseSerilog();
+    }
+}

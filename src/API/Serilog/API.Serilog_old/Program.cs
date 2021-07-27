@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace API.Serilog
 {
@@ -12,16 +12,21 @@ namespace API.Serilog
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+                Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 })
                 //Borramos todos los registros de los loggers que vienen prerregistrados
-                .ConfigureLogging(logging =>
+                //.ConfigureLogging(logging =>
+                //{
+                //    logging.ClearProviders();
+                //    logging.SetMinimumLevel(LogLevel.Debug);
+                //})
+                //Añadimos Serilog obteniendo la configuración desde Microsoft.Extensions.Configuration
+                .UseSerilog((HostBuilderContext context, LoggerConfiguration loggerConfiguration) =>
                 {
-                    logging.ClearProviders();
-                    logging.SetMinimumLevel(LogLevel.Debug);
+                    loggerConfiguration.ReadFrom.Configuration(context.Configuration);
                 });
     }
 }
