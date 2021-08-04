@@ -1,6 +1,5 @@
-using API.Serilog.Configuration;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -12,37 +11,41 @@ namespace API.Serilog
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
+            var config = new ConfigurationBuilder()
+                             .AddJsonFile("appsettings.json")
+                             .Build();
 
-            using var scope = host.Services.CreateScope();
-            var services = scope.ServiceProvider;
-            var loggerFactory = services.GetRequiredService<ILoggerFactory>();
-            var logger = loggerFactory.CreateLogger<Program>();
+            //Initialize Logger
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(config)
+                .CreateLogger();
             try
             {
-                logger.LogInformation("Application Starting.");
+                Log.Information("Application Starting.");
+                CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                Log.Fatal(ex, "The Application failed to start.");
             }
-            host.Run();
-
-            //CreateHostBuilder(args).Build().Run();
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                })
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
                     logging.SetMinimumLevel(LogLevel.Information);
                 })
-                .UseSerilogLogging()
+                .UseSerilog()
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
             ;
     }
 }
