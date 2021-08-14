@@ -9,7 +9,7 @@ namespace API.Serilog.Configuration
     // - Add NuGet package: AspNetCore.HealthChecks.UI.Client (Version 3.1.2)
     // - Check UI -> http://localhost:60378/healthchecks-ui#/healthchecks
 
-    public static class HealthChecksServices
+    public static class HealthChecksConfig
     {
         public static IServiceCollection AddCustomHealthChecks(this IServiceCollection services)
         {
