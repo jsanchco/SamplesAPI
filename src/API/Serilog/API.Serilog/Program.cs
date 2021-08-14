@@ -1,9 +1,8 @@
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
-using System;
 
 namespace API.Serilog
 {
@@ -11,41 +10,47 @@ namespace API.Serilog
     {
         public static void Main(string[] args)
         {
-            var config = new ConfigurationBuilder()
-                             .AddJsonFile("appsettings.json")
-                             .Build();
-
-            //Initialize Logger
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(config)
-                .CreateLogger();
-            try
-            {
-                Log.Information("Application Starting.");
-                CreateHostBuilder(args).Build().Run();
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex, "The Application failed to start.");
-            }
-            finally
-            {
-                Log.CloseAndFlush();
-            }
+            CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureLogging(logging =>
-                {
-                    logging.ClearProviders();
-                    logging.SetMinimumLevel(LogLevel.Information);
-                })
-                .UseSerilog()
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                })
-            ;
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            var appInsightsTelemetryConfiguration = TelemetryConfiguration.CreateDefault();
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile($"appsettings.json", true, true)
+                .AddEnvironmentVariables();
+
+            var configuration = builder.Build();
+
+            var instrumentationKey = configuration.GetSection("ApplicationInsights:InstrumentationKey").Value;
+            appInsightsTelemetryConfiguration.InstrumentationKey = instrumentationKey;
+
+            return Host
+                    .CreateDefaultBuilder(args)
+                    .ConfigureWebHostDefaults(webBuilder =>
+                    {
+                        webBuilder.UseStartup<Startup>();
+                    })
+                    .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+                            .ReadFrom.Configuration(hostingContext.Configuration)
+                            .WriteTo.ApplicationInsights(
+                                appInsightsTelemetryConfiguration,
+                                TelemetryConverter.Traces)
+                    );
+        }
+
+
+        //public static IHostBuilder CreateHostBuilder(string[] args) =>
+        //    Host.CreateDefaultBuilder(args)
+        //        .ConfigureWebHostDefaults(webBuilder =>
+        //        {
+        //            webBuilder.UseStartup<Startup>();
+        //        })
+        //       .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+        //                .ReadFrom.Configuration(hostingContext.Configuration)
+        //                .WriteTo.ApplicationInsights(
+        //                    new TelemetryConfiguration { InstrumentationKey = "c045c8bc-3bf0-48d7-9bbc-33ca494e124e;IngestionEndpoint=https://southcentralus-0.in.applicationinsights.azure.com/" },
+        //                    TelemetryConverter.Traces)
+        //         );
     }
 }

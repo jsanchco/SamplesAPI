@@ -64,6 +64,7 @@ namespace API.Serilog
             app.UseSwagger();
             app.UseSwaggerUI(s =>
             {
+                s.DocumentTitle = "API Serilog and Application Insights";
                 s.SwaggerEndpoint("./swagger/v1/swagger.json", "v1 docs");
                 s.RoutePrefix = string.Empty;
             });
