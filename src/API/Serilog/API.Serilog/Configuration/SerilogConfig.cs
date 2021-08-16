@@ -10,16 +10,6 @@ namespace API.Serilog.Configuration
     {
         public static IHostBuilder CreateLogger(this IHostBuilder hostBuilder)
         {
-            var appInsightsTelemetryConfiguration = TelemetryConfiguration.CreateDefault();
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile($"appsettings.json", true, true)
-                .AddEnvironmentVariables();
-
-            var configuration = builder.Build();
-
-            var instrumentationKey = configuration.GetSection("ApplicationInsights:InstrumentationKey").Value;
-            appInsightsTelemetryConfiguration.InstrumentationKey = instrumentationKey;
-
             hostBuilder.UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
                             .ReadFrom.Configuration(hostingContext.Configuration)
                             .TryAddApplicationInsights()
