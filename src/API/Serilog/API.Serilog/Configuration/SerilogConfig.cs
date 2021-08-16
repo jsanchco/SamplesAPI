@@ -8,7 +8,7 @@ namespace API.Serilog.Configuration
 {
     public static class SerilogConfig
     {
-        public static IHostBuilder CreateLogger(this IHostBuilder hostBuilder)
+        public static IHostBuilder CreateLoggerSerilog(this IHostBuilder hostBuilder)
         {
             hostBuilder.UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
                             .ReadFrom.Configuration(hostingContext.Configuration)

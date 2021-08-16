@@ -17,6 +17,6 @@ namespace API.Serilog
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-               .CreateLogger();
+               .CreateLoggerSerilog();
     }
 }
