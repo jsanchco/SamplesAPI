@@ -61,11 +61,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Lock", "src\API\Lock\AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp.Lock", "src\API\Lock\Console.Lock\ConsoleApp.Lock.csproj", "{BBC5E86E-B882-49B6-9E01-AEB3D9635CD9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06- SerilogWithApplicationInsights", "06- SerilogWithApplicationInsights", "{C6AB4006-20D8-4D18-BCDF-CD3339BAA464}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Serilog", "src\API\Serilog\API.Serilog\API.Serilog.csproj", "{25F8198E-046F-4621-A446-82907A5CD85D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.SerilogWithApplicationInsights", "src\API\SerilogWithApplicationInsights\API.SerilogWithApplicationInsights\API.SerilogWithApplicationInsights.csproj", "{D594768E-D075-4E4D-8B6A-DE52D43700F4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Serilog", "src\API\Serilog\API.Serilog\API.Serilog.csproj", "{25F8198E-046F-4621-A446-82907A5CD85D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDBEEE79-7A13-44C1-AFB5-D8DA0642666B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,10 +146,6 @@ Global
 		{BBC5E86E-B882-49B6-9E01-AEB3D9635CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBC5E86E-B882-49B6-9E01-AEB3D9635CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBC5E86E-B882-49B6-9E01-AEB3D9635CD9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D594768E-D075-4E4D-8B6A-DE52D43700F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D594768E-D075-4E4D-8B6A-DE52D43700F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D594768E-D075-4E4D-8B6A-DE52D43700F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D594768E-D075-4E4D-8B6A-DE52D43700F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{25F8198E-046F-4621-A446-82907A5CD85D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{25F8198E-046F-4621-A446-82907A5CD85D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25F8198E-046F-4621-A446-82907A5CD85D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -185,8 +182,6 @@ Global
 		{5BE11F8B-CAFD-4CC3-A1EA-084F65F48096} = {A91CF079-FFAF-47B8-B55E-F55F94F025A4}
 		{375CBD79-7F65-48C6-BF0C-D94B6FE857E8} = {5BE11F8B-CAFD-4CC3-A1EA-084F65F48096}
 		{BBC5E86E-B882-49B6-9E01-AEB3D9635CD9} = {5BE11F8B-CAFD-4CC3-A1EA-084F65F48096}
-		{C6AB4006-20D8-4D18-BCDF-CD3339BAA464} = {A91CF079-FFAF-47B8-B55E-F55F94F025A4}
-		{D594768E-D075-4E4D-8B6A-DE52D43700F4} = {C6AB4006-20D8-4D18-BCDF-CD3339BAA464}
 		{25F8198E-046F-4621-A446-82907A5CD85D} = {8CBD904A-28D2-4AFA-8CFF-D94C3DF33375}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
