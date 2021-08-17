@@ -1,4 +1,5 @@
-﻿using Shared.DTO.ROP;
+﻿using Model.ROP.Entities;
+using Shared.DTO.ROP;
 using Shared.ROP;
 using System.Threading.Tasks;
 
@@ -6,7 +7,7 @@ namespace Services.ROP.Interfaces
 {
     public interface IPostPersonalProfile
     {
-        Task<Result<PersonalProfileDto>> AddPersonalProfileAndSendEmail(PersonalProfileDto personalProfileDto);
-        Task<Result<PersonalProfileDto>> AddPersonalProfile(PersonalProfileDto personalProfileDto);
+        Task<Result<bool>> AddPersonalProfileAndSendEmail(PersonalProfileDto personalProfileDto);
+        Task<Result<PersonalProfileEntity>> AddPersonalProfile(PersonalProfileDto personalProfileDto);
     }
 }

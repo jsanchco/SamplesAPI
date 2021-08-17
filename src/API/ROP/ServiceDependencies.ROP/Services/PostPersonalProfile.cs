@@ -1,5 +1,6 @@
 ﻿using Data.ROP.Repositories;
 using Microsoft.Extensions.Logging;
+using Model.ROP.Entities;
 using Services.ROP.Interfaces;
 using Services.ROP.Mappers;
 using Shared.DTO.ROP;
@@ -26,18 +27,21 @@ namespace ServiceDependencies.ROP.Services
             _random = new Random();
         }
 
-        public async Task<Result<PersonalProfileDto>> AddPersonalProfile(PersonalProfileDto personalProfileDto)
+        public async Task<Result<PersonalProfileEntity>> AddPersonalProfile(PersonalProfileDto personalProfileDto)
+        {
+            var result = await _personalProfileRepository
+                .AddPersonalProfile(personalProfileDto.MapToEntity());
+
+            return result;
+        }
+
+        public async Task<Result<bool>> AddPersonalProfileAndSendEmail(PersonalProfileDto personalProfileDto)
         {
             var result = await _personalProfileRepository
                 .AddPersonalProfile(personalProfileDto.MapToEntity())
-                .MapAsync();
+                .Bind(x => SendEmail(personalProfileDto));
 
-            return null;
-        }
-
-        public Task<Result<PersonalProfileDto>> AddPersonalProfileAndSendEmail(PersonalProfileDto personalProfileDto)
-        {
-            throw new System.NotImplementedException();
+            return result;
         }
 
         private async Task<Result<bool>> SendEmail(PersonalProfileDto personalProfileDto)

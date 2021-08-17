@@ -14,8 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Shared.Logger\Shared.Logger.csproj" />
-    <ProjectReference Include="..\ServiceDependencies.ROP\ServiceDependencies.ROP.csproj" />
-    <ProjectReference Include="..\Services.ROP\Services.ROP.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Shared.Model\Shared.Model.csproj" />
   </ItemGroup>
 
 

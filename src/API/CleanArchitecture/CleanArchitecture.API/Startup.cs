@@ -1,6 +1,5 @@
-using API.ROP.Configuration;
-using API.ROP.Middlewares;
-using Data.ROP.Repositories;
+using API.Basic.Configuration;
+using API.Basic.Middlewares;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -8,10 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ServiceDependencies.ROP.Services;
-using Services.ROP.Interfaces;
 
-namespace API.ROP
+namespace API.Basic
 {
     public class Startup
     {
@@ -31,15 +28,12 @@ namespace API.ROP
 
             services.AddCustomHealthChecks();
 
-            services.AddTransient<PersonalProfileRepository>();
-            services.AddSingleton<IPostPersonalProfile, PostPersonalProfile>();
-
             services.AddSwaggerGen(s =>
             {
                 s.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
-                    Title = "Sample ROP API",
-                    Description = "ROP API"
+                    Title = "Sample Basic API",
+                    Description = "Basic API"
                 });
             });
         }

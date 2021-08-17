@@ -1,5 +1,5 @@
 # Publicación en IIS y visualización del site desde otro PC
-**********************************************************
+***********************************************************
 
 1º - Instalar (si es CORE: dotnet-hosting-5.0.8-win.exe)
 2º - Publicar el sitio desde IIS eligiendo un puerto preferiblemente por encima del 9090

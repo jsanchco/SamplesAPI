@@ -1,5 +1,7 @@
 ﻿using Model.ROP.Entities;
+using Shared.ROP;
 using System;
+using System.Collections.Immutable;
 using System.Threading.Tasks;
 
 namespace Data.ROP.Repositories
@@ -8,18 +10,25 @@ namespace Data.ROP.Repositories
     {
         public async Task<PersonalProfileEntity> GetPersonalProfile(Guid id)
         {
-            return await Task.FromResult(new PersonalProfileEntity 
+            return await Task.FromResult(new PersonalProfileEntity
             (
-                "Jesús", 
-                "Sánchez", 
+                "Jesús",
+                "Sánchez",
                 "jsanchco@gmail.com",
                 48
             ));
         }
 
-        public async Task<bool> AddPersonalProfile(PersonalProfileEntity personalProfileEntity)
+        public async Task<Result<PersonalProfileEntity>> AddPersonalProfile(PersonalProfileEntity personalProfileEntity)
         {
-            return await Task.FromResult(true);
+            if (personalProfileEntity.Name.Equals("error", StringComparison.InvariantCulture))
+            {
+                var errors = ImmutableArray.Create(Error.Create("Error custom at Insert in DB"));
+
+                return await Task.FromResult(new Result<PersonalProfileEntity>(errors));
+            }
+
+            return await Task.FromResult(personalProfileEntity);
         }
     }
 }
