@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Shared.Model.Response;
+using Newtonsoft.Json;
 
-namespace API.Basic.Controllers
+namespace CleanArchitecture.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
@@ -18,13 +18,9 @@ namespace API.Basic.Controllers
         [HttpGet]
         public IActionResult Get(string echo)
         {
-            _logger.LogInformation($"In ValuesController -> [HttpGet]");
+            _logger.LogInformation($"In ValuesController [GET] -> {JsonConvert.SerializeObject(echo)}");
 
-            return Ok(new ResponseResult<string>
-            {
-                Succesful = true,
-                Data = echo
-            });
+            return Ok(echo);
         }
     }
 }

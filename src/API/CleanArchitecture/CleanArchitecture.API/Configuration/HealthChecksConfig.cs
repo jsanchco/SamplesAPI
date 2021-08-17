@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace API.Basic.Configuration
+namespace CleanArchitecture.API.Configuration
 {
     // Health check            
     // - Add NuGet package: AspNetCore.HealthChecks.UI (Version 3.1.3)
     // - Add NuGet package: AspNetCore.HealthChecks.UI.InMemory.Storage (Version 3.1.2)
     // - Add NuGet package: AspNetCore.HealthChecks.UI.Client (Version 3.1.2)
-    // - Check UI -> http://localhost:60378/healthchecks-ui#/healthchecks
+    // - Check UI -> http://localhost:60500/healthchecks-ui#/healthchecks
 
-    public static class HealthChecksServices
+    public static class HealthChecksConfig
     {
         public static IServiceCollection AddCustomHealthChecks(this IServiceCollection services)
         {

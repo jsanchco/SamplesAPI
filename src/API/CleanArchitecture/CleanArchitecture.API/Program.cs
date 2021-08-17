@@ -1,7 +1,8 @@
+using CleanArchitecture.API.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace API.Basic
+namespace CleanArchitecture.API
 {
     public class Program
     {
@@ -15,6 +16,7 @@ namespace API.Basic
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+               .CreateLoggerSerilog();
     }
 }

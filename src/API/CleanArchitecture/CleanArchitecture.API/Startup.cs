@@ -1,5 +1,5 @@
-using API.Basic.Configuration;
-using API.Basic.Middlewares;
+using CleanArchitecture.API.Configuration;
+using CleanArchitecture.API.Middlewares;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace API.Basic
+namespace CleanArchitecture.API
 {
     public class Startup
     {
@@ -24,24 +24,20 @@ namespace API.Basic
         {
             services.AddControllers();
 
-            services.AddPapertrailLogging(Configuration);
-
             services.AddCustomHealthChecks();
 
             services.AddSwaggerGen(s =>
             {
                 s.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
-                    Title = "Sample Basic API",
-                    Description = "Basic API"
+                    Title = "Sample CleanArchitecture API (include Application Insights)",
+                    Description = "CleanArchitecture API"
                 });
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(
-            IApplicationBuilder app,
-            IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -68,6 +64,7 @@ namespace API.Basic
             app.UseSwagger();
             app.UseSwaggerUI(s =>
             {
+                s.DocumentTitle = "API CleanArchitecture";
                 s.SwaggerEndpoint("./swagger/v1/swagger.json", "v1 docs");
                 s.RoutePrefix = string.Empty;
             });
