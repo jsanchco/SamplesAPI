@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Consume API Affiliates": {
+        "commandName": "Project",
+        "environmentVariables": {
+            "ASPNETCORE_ENVIRONMENT": "Development"
+        }
+    }
+  }
+}
